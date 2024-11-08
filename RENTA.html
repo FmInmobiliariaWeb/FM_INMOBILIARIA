@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Renta</title>
+    <style>
+        /* Estilos generales del cuerpo */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: margin-left 0.3s ease;
+        }
+
+        /* Botón para abrir el menú */
+        .open-btn {
+            font-size: 20px;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 15px;
+            cursor: pointer;
+            z-index: 10;
+            display: block;
+        }
+
+        /* Estilo del menú emergente */
+        .side-menu {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: -250px; /* Empieza fuera de la pantalla */
+            background-color: #333;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            z-index: 9;
+        }
+
+        /* Estilo de los enlaces dentro del menú */
+        .side-menu ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .side-menu ul li {
+            padding: 15px;
+            text-align: left;
+        }
+
+        .side-menu ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            display: block;
+            transition: background-color 0.3s;
+        }
+
+        /* Efecto hover en los enlaces */
+        .side-menu ul li a:hover {
+            background-color: #555;
+        }
+
+        /* Botón de cerrar el menú */
+        .close-btn {
+            font-size: 36px;
+            color: white;
+            background: none;
+            border: none;
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            cursor: pointer;
+        }
+
+        /* Estilo cuando el menú está abierto */
+        .side-menu.open {
+            left: 0;
+        }
+
+        /* Espacio del cuerpo cuando el menú se abre */
+        body.menu-open {
+            margin-left: 250px; /* El contenido se mueve a la derecha */
+        }
+
+        /* Hacer que el botón de abrir menú desaparezca cuando el menú está abierto */
+        body.menu-open .open-btn {
+            display: none;
+        }
+
+        /* Ajustes responsivos */
+        @media (max-width: 768px) {
+            .side-menu {
+                width: 200px; /* Menú más pequeño en pantallas móviles */
+            }
+
+            /* Reducir el tamaño del texto en dispositivos pequeños */
+            .side-menu ul li a {
+                font-size: 16px;
+            }
+
+            .open-btn {
+                font-size: 18px;
+                top: 10px;
+                left: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .side-menu {
+                width: 180px; /* Menú aún más pequeño en pantallas muy pequeñas */
+            }
+
+            /* Reducir aún más el tamaño de la fuente y los márgenes */
+            .side-menu ul li a {
+                font-size: 14px;
+            }
+
+            .open-btn {
+                font-size: 16px;
+                top: 8px;
+                left: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Botón para abrir el menú -->
+    <button class="open-btn" onclick="openMenu()">☰ Abrir Menú</button>
+
+    <!-- Menú emergente -->
+    <div id="side-menu" class="side-menu">
+        <button class="close-btn" onclick="closeMenu()">×</button>
+        <ul>
+            <li><a href="INICIO.html">Inicio</a></li>
+          <li><a href="#">catálogo :</a></li>
+          <li><a href="VENTA.html">Venta</a></li>
+          <li><a href="RENTA.html">Renta</a></li>
+          <li><a href="CONTACTO.html">Contacto</a></li>
+        </ul>
+    </div>
+
+    <!-- JavaScript para abrir y cerrar el menú -->
+    <script>
+        /* Función para abrir el menú */
+        function openMenu() {
+            // Añade la clase 'open' al menú, lo cual lo hace deslizar hacia la izquierda
+            document.getElementById("side-menu").classList.add("open");
+            // Añade la clase 'menu-open' al body para mover el contenido y ocultar el botón de abrir
+            document.body.classList.add("menu-open");
+        }
+
+        /* Función para cerrar el menú */
+        function closeMenu() {
+            // Elimina la clase 'open' para ocultar el menú
+            document.getElementById("side-menu").classList.remove("open");
+            // Elimina la clase 'menu-open' del body para restaurar el contenido y mostrar el botón de abrir
+            document.body.classList.remove("menu-open");
+        }
+    </script>
+  
+    <body>
+        <style>
+            body {
+                font-family: 'Arial', sans-serif;
+                background-color: #f4f4f4;
+                margin: 0;
+                padding: 0;
+                color: #333;
+            }
+        
+            /* Estilo del catálogo */
+            .catalogo {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 20px;
+                padding: 30px;
+            }
+        
+            .inmueble {
+                background: linear-gradient(145deg, #f5f7fa, #c3cfe2); /* Fondo sutil */
+                border-radius: 12px;
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+                overflow: hidden;
+                transition: transform 0.3s ease-in-out;
+                position: relative;
+                cursor: pointer;
+                transition: transform 0.3s ease;
+            }
+        
+            .inmueble:hover {
+                transform: scale(1.05);
+            }
+        
+            .inmueble img {
+                width: 100%;
+                height: 220px;
+                object-fit: cover;
+            }
+        
+            .contenido {
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+        
+            .contenido h3 {
+                font-size: 1.6rem;
+                color: #333;
+                margin: 0;
+            }
+        
+            .contenido p {
+                font-size: 1.1rem;
+                color: #555;
+                margin-top: 8px;
+            }
+        
+            .btn-detalles {
+                background-color: #3498db;
+                color: white;
+                padding: 12px 18px;
+                text-align: center;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+                width: fit-content;
+                margin-top: 15px;
+            }
+        
+            .btn-detalles:hover {
+                background-color: #2980b9;
+            }
+        
+            .servicios {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 15px;
+            }
+        
+            .servicios div {
+                text-align: center;
+            }
+        
+            .servicios i {
+                font-size: 2rem;
+                color: #3498db;
+            }
+        
+            .modal {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.6);
+                align-items: center;
+                justify-content: center;
+                opacity: 0;
+                transition: opacity 0.3s ease-in-out;
+            }
+        
+            .modal.show {
+                display: flex;
+                opacity: 1;
+            }
+        
+            .modal-contenido {
+                background-color: white;
+                padding: 30px;
+                border-radius: 12px;
+                max-width: 600px;
+                width: 80%;
+                transform: translateY(-30px);
+                transition: transform 0.3s ease-in-out;
+            }
+        
+            .modal.show .modal-contenido {
+                transform: translateY(0);
+            }
+        
+            .cerrar-modal {
+                background-color: #e74c3c;
+                color: white;
+                padding: 12px;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                float: right;
+            }
+        
+            .cerrar-modal:hover {
+                background-color: #c0392b;
+            }
+        
+            /* Estilo de íconos */
+            .fa {
+                font-size: 24px;
+                color: #3498db;
+            }
+        
+            /* Responsividad */
+            @media (max-width: 768px) {
+                .catalogo {
+                    grid-template-columns: 1fr 1fr;
+                }
+            }
+        
+            @media (max-width: 480px) {
+                .catalogo {
+                    grid-template-columns: 1fr;
+                }
+            }
+        
+        </style>
+        
+        <body>
+            <div class="catalogo">
+                <!-- Inmueble 1 -->
+                <div class="inmueble" data-id="1">
+                    <img src="IMAGES/v141.jpg" alt="Inmueble 1">
+                    <div class="contenido">
+                        <h3>Inmueble Calzada Porfrio Díaz #141</h3>
+                        <p>1,800 m²</p>
+                        <button class="btn-detalles" onclick="mostrarDetalles(1)">Ver detalles</button>
+                        <div class="servicios">
+                            <div>
+                                <i class="fa fa-water"></i>
+                                <p>Agua</p>
+                            </div>
+                            <div>
+                                <i class="fa fa-plug"></i>
+                                <p>Electricidad</p>
+                            </div>
+                            <div>
+                                <i class=""></i>
+                                <p>Tráiler</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Inmueble 2 -->
+                <div class="inmueble" data-id="2">
+                    <img src="IMAGES/v104.jpg" alt="Inmueble 2">
+                    <div class="contenido">
+                        <h3>Inmueble Federico Ortíz Armengol #104</h3>
+                        <p>985.86 m²</p>
+                        <button class="btn-detalles" onclick="mostrarDetalles(2)">Ver detalles</button>
+                        <div class="servicios">
+                            <div>
+                                <i class="fa fa-water"></i>
+                                <p>Agua</p>
+                            </div>
+                            <div>
+                                <i class="fa fa-plug"></i>
+                                <p>Electricidad</p>
+                            </div>
+                            <div>
+                                <i class="fa fa-cogs"></i>
+                                <p>Cisterna</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Inmueble 3 -->
+                <div class="inmueble" data-id="3">
+                    <img src="IMAGES/v418.jpg" alt="Inmueble 3">
+                    <div class="contenido">
+                        <h3>Inmueble Cuautémoc #418</h3>
+                        <p>493 m²</p>
+                        <button class="btn-detalles" onclick="mostrarDetalles(3)">Ver detalles</button>
+                        <div class="servicios">
+                            <div>
+                                <i class="fa fa-water"></i>
+                                <p>Agua</p>
+                            </div>
+                            <div>
+                                <i class="fa fa-plug"></i>
+                                <p>Electricidad</p>
+                            </div>
+                            <div>
+                                <i class=""></i>
+                                <p>Tráiler</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Inmueble 4 -->
+                <div class="inmueble" data-id="4">
+                    <img src="IMAGES/vManuel Ruiz.jpg" alt="Inmueble 4">
+                    <div class="contenido">
+                        <h3>Inmueble Nuevo #123</h3>
+                        <p>500 m²</p>
+                        <button class="btn-detalles" onclick="mostrarDetalles(4)">Ver detalles</button>
+                        <div class="servicios">
+                            <div>
+                                <i class="fa fa-water"></i>
+                                <p>Agua</p>
+                            </div>
+                            <div>
+                                <i class="fa fa-plug"></i>
+                                <p>Electricidad</p>
+                            </div>
+                            <div>
+                                <i class="fa fa-snowflake"></i>
+                                <p>Aire Acond.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Inmueble 5 -->
+                <div class="inmueble" data-id="5">
+                    <img src="IMAGES/vManuel Ruiz.jpg" alt="Inmueble 5">
+                    <div class="contenido">
+                        <h3>Inmueble Nuevo #123</h3>
+                        <p>500 m²</p>
+                        <button class="btn-detalles" onclick="mostrarDetalles(5)">Ver detalles</button>
+                        <div class="servicios">
+                            <div>
+                                <i class="fa fa-water"></i>
+                                <p>Agua</p>
+                            </div>
+                            <div>
+                                <i class="fa fa-plug"></i>
+                                <p>Electricidad</p>
+                            </div>
+                            <div>
+                                <i class="fa fa-snowflake"></i>
+                                <p>Aire Acond.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Modal de detalles -->
+            <div class="modal" id="modal-detalles">
+                <div class="modal-contenido">
+                    <button class="cerrar-modal" onclick="cerrarModal()">X</button>
+                    <h2 id="modal-titulo"></h2>
+                    <p><strong>Renta:</strong> <span id="modal-precio"></span></p>
+                    <p><strong>Ubicación:</strong> <span id="modal-ubicacion"></span></p>
+                    <p><strong>Características:</strong></p>
+                    <ul id="modal-caracteristicas"></ul>
+        
+                    <!-- Nueva sección de servicios -->
+                    <p><strong>Servicios:</strong></p>
+                    <ul id="modal-servicios"></ul>
+                </div>
+            </div>
+        
+        <script>
+            const inmuebles = {
+                1: {
+                    titulo: "Inmueble Calzada Porfrio Díaz #141",
+                    precio: "A tratar",
+                    ubicacion: "Calle Calzada Porfrio Díaz #141 , Col.Reforma , C.P.68120 , Oaxaca de Juárez.",
+                    caracteristicas: ["Superficie total : 1,800 m²", "Superficie contruida : 1,067 m²"],
+                    servicios: ["Agua potable", "Instalación eléctrica (bifásica)", "Cisterna", "Entrada para tráiler"]
+                },
+                2: {
+                    titulo: "Inmueble Federico Ortíz Armengol #104",
+                    precio: "A tratar",
+                    ubicacion: "Calle Federico Ortíz Armengol #104 , Col.Reforma, C.P.68050 , Oaxaca de Juárez.",
+                    caracteristicas: ["Superficie de contrucción : 1,436.02 m²", "Superficie del terreno : 985.86 m²"],
+                    servicios: ["Agua potable", "Instalación eléctrica", "Cisterna"]
+                },
+                3: {
+                    titulo: "Inmueble Cuauhtemoc #418",
+                    precio: "A tratar",
+                    ubicacion: "Calle Cuauhtemoc #418 , Barrio Trinidad de las Huertas , C.P. 68120 , Oaxaca de Juárez",
+                    caracteristicas: ["Superficie total : 493 m²", "Superficie de construcción : 493 m²", "Uso de suelo : comercial"],
+                    servicios: ["Agua potable", "Instalación eléctrica(bisfásica)", "Cisterna", "Entrada para tráiler"]
+                },
+                4: {
+                    titulo: "Inmueble Nuevo #123",
+                    precio: "A tratar",
+                    ubicacion: "Calle Nueva #123, Oaxaca de Juárez",
+                    caracteristicas: ["Superficie total : 500 m²", "Oficinas adaptables", "Bodega de 100 m²"],
+                    servicios: ["Agua potable", "Instalación eléctrica", "Cisterna", "Aire acondicionado"]
+                },
+                5: {
+                    titulo: "Inmueble Nuevo #123",
+                    precio: "A tratar",
+                    ubicacion: "Calle Nueva #123, Oaxaca de Juárez",
+                    caracteristicas: ["Superficie total : 500 m²", "Oficinas adaptables", "Bodega de 100 m²"],
+                    servicios: ["Agua potable", "Instalación eléctrica", "Cisterna", "Aire acondicionado"]
+                }
+            };
+        
+            function mostrarDetalles(id) {
+                const inmueble = inmuebles[id];
+                document.getElementById("modal-titulo").innerText = inmueble.titulo;
+                document.getElementById("modal-precio").innerText = inmueble.precio;
+                document.getElementById("modal-ubicacion").innerText = inmueble.ubicacion;
+        
+                const caracteristicasList = document.getElementById("modal-caracteristicas");
+                caracteristicasList.innerHTML = "";
+                inmueble.caracteristicas.forEach(caracteristica => {
+                    const li = document.createElement("li");
+                    li.innerText = caracteristica;
+                    caracteristicasList.appendChild(li);
+                });
+        
+                const serviciosList = document.getElementById("modal-servicios");
+                serviciosList.innerHTML = "";
+                inmueble.servicios.forEach(servicio => {
+                    const li = document.createElement("li");
+                    li.innerText = servicio;
+                    serviciosList.appendChild(li);
+                });
+        
+                document.getElementById("modal-detalles").classList.add("show");
+            }
+        
+            function cerrarModal() {
+                document.getElementById("modal-detalles").classList.remove("show");
+            }
+        </script>
+       
+        <link href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        <style>
+            /* Estilos generales */
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+            }
+    
+            /* Burbuja flotante de WhatsApp */
+            .whatsapp-button {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background-color: #25D366;
+                border-radius: 50%;
+                padding: 15px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                cursor: pointer;
+                z-index: 1000;
+                transition: transform 0.3s ease;
+            }
+    
+            /* Efecto al pasar el ratón */
+            .whatsapp-button:hover {
+                transform: scale(1.1);
+            }
+    
+            /* Estilo para el icono */
+            .whatsapp-button i {
+                font-size: 30px;
+                color: white;
+            }
+    
+            /* Estilos responsivos */
+            @media (max-width: 768px) {
+                .whatsapp-button {
+                    bottom: 10px;
+                    right: 10px;
+                    padding: 12px;
+                }
+                .whatsapp-button i {
+                    font-size: 25px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+    
+        <!-- Burbuja de WhatsApp -->
+        <div class="whatsapp-button" onclick="window.open('https://wa.link/l0e7vv', '_blank');">
+            <i class="fa fa-whatsapp"></i>
+        </div>
+        </body>
+        </html>
+

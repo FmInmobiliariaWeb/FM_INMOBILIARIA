@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes">
+    <title>Página Inicial</title>
+    <style>
+        /* Estilos generales del cuerpo */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: margin-left 0.3s ease;
+        }
+
+        /* Fondo de imagen para toda la página */
+        body {
+            margin: 0; /* Eliminar márgenes predeterminados */
+            height: 100vh; /* Hacer que el body ocupe toda la altura de la ventana */
+            background: url(IMAGES/FONT1.jpg) no-repeat center center fixed; /* Ruta de la imagen */
+            background-size: cover; /* La imagen cubre toda la pantalla */
+            background-attachment: fixed; /* La imagen no se mueve al hacer scroll */
+        }
+
+        /* Un poco de estilo para el texto */
+        h2 {
+            color: white; /* Color blanco para el texto */
+            padding-top: 20vh; /* Colocar el texto hacia la parte superior de la pantalla */
+            font-size: 1em; /* Tamaño del texto */
+            margin-left: 30px;
+        }
+
+        p {
+            font-family: 'TT Tricks', monospace;
+            color: white; /* Color blanco para el texto */
+            font-size: 6em; /* Tamaño del texto */
+            margin-left: 90px;
+            font-weight: 1000;
+            margin-top: 10px;
+        } 
+
+        img {
+            position: fixed;  /* Esto hace que la imagen esté fija en la pantalla */
+            top: 210px;        /* Ajusta la distancia desde la parte superior */
+            left: 800px;       /* Ajusta la distancia desde la parte izquierda */
+            max-width: 100%;   /* Hace que la imagen sea responsiva */
+            height: auto;      /* Mantiene la proporción de la imagen */
+            z-index: 10;  
+        }
+
+        h3 {
+            font-family: 'TT Tricks', monospace;
+            color: white; /* Color blanco para el texto */
+            font-size: 2em; /* Tamaño del texto */
+            margin-left: 90px;
+            font-weight: 100;
+            margin-top: 10px;
+        }
+
+        /* Estilo del menú */
+        .open-btn {
+            font-size: 20px;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 15px;
+            cursor: pointer;
+            z-index: 10;
+            display: block;
+        }
+
+        /* Estilo del menú emergente */
+        .side-menu {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: -250px; /* Empieza fuera de la pantalla */
+            background-color: #333;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            z-index: 9;
+        }
+
+        .side-menu ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .side-menu ul li {
+            padding: 15px;
+            text-align: left;
+        }
+
+        .side-menu ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            display: block;
+            transition: background-color 0.3s;
+        }
+
+        .side-menu ul li a:hover {
+            background-color: #555;
+        }
+
+        /* Botón de cerrar el menú */
+        .close-btn {
+            font-size: 36px;
+            color: white;
+            background: none;
+            border: none;
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            cursor: pointer;
+        }
+
+        /* Estilo cuando el menú está abierto */
+        .side-menu.open {
+            left: 0;
+        }
+
+        /* Espacio del cuerpo cuando el menú se abre */
+        body.menu-open {
+            margin-left: 250px; /* El contenido se mueve a la derecha */
+        }
+
+        /* Hacer que el botón de abrir menú desaparezca cuando el menú está abierto */
+        body.menu-open .open-btn {
+            display: none;
+        }
+
+        /* Ajustes responsivos */
+        @media (max-width: 768px) {
+            .side-menu {
+                width: 200px; /* Menú más pequeño en pantallas móviles */
+            }
+
+            .side-menu ul li a {
+                font-size: 16px;
+            }
+
+            .open-btn {
+                font-size: 18px;
+                top: 10px;
+                left: 10px;
+            }
+
+            img {
+                position: absolute;
+                top: 210px;
+                margin-left: 50px;  /* Ajuste de la imagen en pantallas pequeñas */
+                max-width: 80%;
+                height: auto;
+            }
+
+            h2 {
+                font-size: 0.8em;
+                margin-left: 20px;
+            }
+
+            p {
+                font-size: 4em;
+                margin-left: 50px;
+            }
+
+            h3 {
+                font-size: 1.5em;
+                margin-left: 50px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .side-menu {
+                width: 180px; /* Menú aún más pequeño en pantallas muy pequeñas */
+            }
+
+            .side-menu ul li a {
+                font-size: 14px;
+            }
+
+            .open-btn {
+                font-size: 16px;
+                top: 8px;
+                left: 8px;
+            }
+
+            img {
+                position: absolute;
+                top: 210px;
+                margin-left: 20px;  /* Ajuste aún más para pantallas muy pequeñas */
+                max-width: 70%;
+                height: auto;
+            }
+
+            p {
+                font-size: 3em;
+                margin-left: 30px;
+            }
+
+            h3 {
+                font-size: 1.2em;
+                margin-left: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Botón para abrir el menú -->
+<button class="open-btn" onclick="openMenu()">☰ Abrir Menú</button>
+
+<!-- Menú emergente -->
+<div id="side-menu" class="side-menu">
+    <button class="close-btn" onclick="closeMenu()">×</button>
+    <ul>
+        <li><a href="INICIO.html">Inicio</a></li>
+        <li><a href="#">catálogo :</a></li>
+        <li><a href="VENTA.html">Venta</a></li>
+        <li><a href="RENTA.html">Renta</a></li>
+        <li><a href="CONTACTO.html">Contacto</a></li>
+    </ul>
+</div>
+
+<!-- JavaScript para abrir y cerrar el menú -->
+<script>
+    /* Función para abrir el menú */
+    function openMenu() {
+        document.getElementById("side-menu").classList.add("open");
+        document.body.classList.add("menu-open");
+    }
+
+    /* Función para cerrar el menú */
+    function closeMenu() {
+        document.getElementById("side-menu").classList.remove("open");
+        document.body.classList.remove("menu-open");
+    }
+</script>
+
+<h2>FM INMOBILIARIA</h2>
+<p>Cotiza con <br> Nosotros </p>
+<h3>Conoce nuestro catálogo de<br> venta y renta...</h3>
+
+<img src="IMAGES/IMAGE1.png">
+<link href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<style>
+    /* Estilos generales */
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Burbuja flotante de WhatsApp */
+    .whatsapp-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #25D366;
+        border-radius: 50%;
+        padding: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        z-index: 1000;
+        transition: transform 0.3s ease;
+    }
+
+    /* Efecto al pasar el ratón */
+    .whatsapp-button:hover {
+        transform: scale(1.1);
+    }
+
+    /* Estilo para el icono */
+    .whatsapp-button i {
+        font-size: 30px;
+        color: white;
+    }
+
+    /* Estilos responsivos */
+    @media (max-width: 768px) {
+        .whatsapp-button {
+            bottom: 10px;
+            right: 10px;
+            padding: 12px;
+        }
+        .whatsapp-button i {
+            font-size: 25px;
+        }
+    }
+</style>
+</head>
+<body>
+
+<!-- Burbuja de WhatsApp -->
+<div class="whatsapp-button" onclick="window.open('https://wa.link/l0e7vv', '_blank');">
+    <i class="fa fa-whatsapp"></i>
+</div>
+
+</body>
+</html>
